@@ -4,7 +4,6 @@ public class Message {
 	private Pessoa pessoa;
 	private TimeFutebol time;
 	private String metodo;
-	private String prop;
 	
 	public Message(Pessoa pessoa, TimeFutebol time, String metodo) {
 		super();
@@ -40,6 +39,31 @@ public class Message {
 		return false;
 	}
 	
+	public String getMetodo() {
+		return metodo;
+	}
+	
+	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public TimeFutebol getTime() {
+		return time;
+	}
+
+	public void setTime(TimeFutebol time) {
+		this.time = time;
+	}
+
+	public void setMetodo(String metodo) {
+		this.metodo = metodo;
+	}
+
 	public TipoMetodo getTipoMetodo(){
 		switch (metodo) {
 		case "GET": {

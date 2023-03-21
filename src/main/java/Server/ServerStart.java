@@ -6,13 +6,21 @@ package Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+
+import com.google.gson.Gson;
+
+import Controller.JogadorController;
+import Controller.MessageHandler;
+import Controller.TecnicoController;
+import Controller.TimeFutebolController;
+import Model.Jogador;
+import Model.Message;
+import Model.Tecnico;
 /**
  *
  * @author andreellias18
@@ -29,6 +37,8 @@ public class ServerStart {
         
         Scanner scan = new Scanner(System.in);
         
+        Gson gson = new Gson();
+        
     	Socket conn = null;
 
         try {
@@ -36,27 +46,15 @@ public class ServerStart {
             conn = server.accept();
             System.out.println("Conexão recebida.");
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            PrintWriter out = new PrintWriter(conn.getOutputStream(), true); // true para autoflush;
-
-            System.out.println("Digite mensagem para enviar: ");
-            String msgEnviar = scan.next();
-            while (!msgEnviar.equals("exit")) {
-                // enviar a sentença digitada pelo usuário
-                out.println(msgEnviar);
-
-                // ler sentença recebida
-                System.out.println("Aguardando mensagem...");
-                String msgRecebida = in.readLine();
-                if (msgRecebida == null){
-                    // se a outra máquina fechar a conexão (digitar exit) 
-                    // então será recebido 'null' e podemos encerrar o chat.
-                    System.out.println("Chat encerrado pelo outro usuário.");
-                    break;
-                }
-                System.out.println("Mensagem recebida " + msgRecebida);
-                System.out.println("Digite mensagem para enviar ('exit' para sair): ");
-                msgEnviar = scan.next();
-            }
+            String msgRecebida = in.readLine();
+            
+            Message mensagem = gson.fromJson(msgRecebida, Message.class);
+            
+            MessageHandler messageHandler = processarEntrada(mensagem);
+            messageHandler.processar(mensagem, conn);
+            
+            PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
+            
         } catch (Exception e) {
             System.out.println("Deu exception");
             e.printStackTrace();
@@ -71,8 +69,16 @@ public class ServerStart {
         }
     }
     
-    public static String processarEntrada(String entrada) {
-        //processamento dos comandos
-        return "inserido";
+    
+    public static MessageHandler processarEntrada(Message mensagem) {
+    	MessageHandler messageHandler;
+    	if(mensagem.isExistsTime()) {
+    		messageHandler = new TimeFutebolController(mensagem.getTime());
+    	} else if(mensagem.isExistsTecnico()) {
+    		messageHandler = new TecnicoController((Tecnico) mensagem.getPessoa());
+    	} else {
+    		messageHandler = new JogadorController((Jogador) mensagem.getPessoa());
+    	}
+    	return messageHandler;
     }
 }
