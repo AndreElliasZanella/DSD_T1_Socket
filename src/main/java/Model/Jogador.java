@@ -13,6 +13,9 @@ public class Jogador extends Pessoa{
     private int numeroDaCamisa;
     private int posicao;
 
+    public Jogador() {
+    }
+    
     public Jogador(int numeroDaCamisa, int posicao, String cpf, String nome, String endereco, String contato, int idade) {
         super(cpf, nome, endereco, contato, idade);
         this.numeroDaCamisa = numeroDaCamisa;
