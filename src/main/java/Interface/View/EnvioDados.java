@@ -34,9 +34,21 @@ public class EnvioDados extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String retorno = gson.toJson(carregarMessage(), Message.class);
-                controle.getDados(retorno);
+                controle.setMessage(retorno);
             }
         });
+        
+        btSair.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String retorno = "exit";
+                controle.setMessage(retorno);
+            }
+        });
+    }
+    
+    public String retDados(){
+        return controle.getDados();
     }
     
     public Message carregarMessage(){
@@ -78,6 +90,28 @@ public class EnvioDados extends javax.swing.JFrame {
     
     public void FecharTela(){
         setVisible(false);
+    }
+    
+    public void limparTela(){
+        cbNomeJ.setText("");
+        cbCPFJ.setText("");
+        cbCamisaJ.setText("");
+        cbContatoJ.setText("");
+        cbEnderecoJ.setText("");
+        cbIdadeJ.setText("");
+        cbPosicaoJ.setText("");
+        
+        cbNomeT.setText("");
+        cbCPFT.setText("");
+        cbContatoT.setText("");
+        cbEnderecoT.setText("");
+        cbExpT.setText("");
+        cbIdadeT.setText("");
+        cbLicensaT.setText("");
+        
+        cbNomeTime.setText("");
+        cbCategoriaTime.setText("");
+        cbEstadioTime.setText("");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,6 +164,7 @@ public class EnvioDados extends javax.swing.JFrame {
         btEnviar = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         tipo = new javax.swing.JComboBox<>();
+        btSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -182,6 +217,8 @@ public class EnvioDados extends javax.swing.JFrame {
         jLabel22.setText("Tipo");
 
         tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JOGADOR", "TECNICO", "TIME", " " }));
+
+        btSair.setText("Sair");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -270,8 +307,13 @@ public class EnvioDados extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(158, 158, 158))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(159, 159, 159))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btSair)
+                        .addGap(270, 270, 270))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,9 +322,8 @@ public class EnvioDados extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(metodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel22)))
+                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -359,9 +400,11 @@ public class EnvioDados extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbEstadioTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(btEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addGap(18, 18, 18)
+                .addComponent(btSair)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -404,6 +447,7 @@ public class EnvioDados extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEnviar;
+    private javax.swing.JButton btSair;
     private javax.swing.JTextField cbCPFJ;
     private javax.swing.JTextField cbCPFT;
     private javax.swing.JTextField cbCamisaJ;

@@ -12,12 +12,17 @@ import Model.Message;
  */
 public class ControllerEnvioDados {
     
-    Message message = new Message();
+    String message = "";
     
     public ControllerEnvioDados() {
     }
     
-    public String getDados(String json){
-        return json;
+    public void setMessage(String json){
+        message = json;
     }
+    
+    public String getDados(){
+        return this.message;
+    }
+    
 }
