@@ -13,6 +13,9 @@ public class Tecnico extends Pessoa{
     private int anosDeExperiencia;
     private int licensa;
 
+    public Tecnico() {
+    }
+    
     public Tecnico(int anosDeExperiencia, int licensa, String cpf, String nome, String endereco, String contato, int idade) {
         super(cpf, nome, endereco, contato, idade);
         this.anosDeExperiencia = anosDeExperiencia;

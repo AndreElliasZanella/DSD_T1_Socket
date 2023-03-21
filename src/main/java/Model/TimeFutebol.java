@@ -18,6 +18,9 @@ public class TimeFutebol {
     private String estadio;
     private List<Pessoa> elenco;
 
+    public TimeFutebol() {
+    }
+    
     public TimeFutebol(String nome, int categoria, String estadio) {
         this.nome = nome;
         this.categoria = categoria;
