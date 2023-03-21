@@ -50,8 +50,8 @@ public class ServerStart {
             
             Message mensagem = gson.fromJson(msgRecebida, Message.class);
             
-            MessageHandler messageHandler = processarEntrada(mensagem);
-            messageHandler.processar(mensagem, conn);
+            MessageHandler messageHandler = processarEntrada(mensagem, conn);
+            messageHandler.processar();
             
             PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
             
@@ -70,14 +70,14 @@ public class ServerStart {
     }
     
     
-    public static MessageHandler processarEntrada(Message mensagem) {
+    public static MessageHandler processarEntrada(Message mensagem, Socket conexao) {
     	MessageHandler messageHandler;
     	if(mensagem.isExistsTime()) {
-    		messageHandler = new TimeFutebolController(mensagem.getTime());
+    		messageHandler = new TimeFutebolController(mensagem, conexao, mensagem.getTime());
     	} else if(mensagem.isExistsTecnico()) {
-    		messageHandler = new TecnicoController((Tecnico) mensagem.getPessoa());
+    		messageHandler = new TecnicoController(mensagem, conexao, (Tecnico) mensagem.getPessoa());
     	} else {
-    		messageHandler = new JogadorController((Jogador) mensagem.getPessoa());
+    		messageHandler = new JogadorController(mensagem, conexao, (Jogador) mensagem.getPessoa());
     	}
     	return messageHandler;
     }
