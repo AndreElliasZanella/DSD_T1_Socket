@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 public class Login extends javax.swing.JFrame {
     
     private ControllerLogin controle;
+    String[] args;
     /**
      * Creates new form Login
      */
@@ -25,19 +26,20 @@ public class Login extends javax.swing.JFrame {
         btServidor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controle.isServidor();
+                controle.isServidor(args);
             }
         });
         
         btCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controle.isCliente();
+                controle.isCliente(args);
             }
         });
     }
     
-    public void exibirTela(){
+    public void exibirTela(String[] argsAux){
+        args = argsAux;
         setVisible(true);
     }
     

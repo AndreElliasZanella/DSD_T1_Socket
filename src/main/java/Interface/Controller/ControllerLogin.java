@@ -4,6 +4,10 @@
  */
 package Interface.Controller;
 
+import Client.ClientStart;
+import Server.ServerStart;
+import java.io.IOException;
+
 /**
  *
  * @author andreellias18
@@ -13,11 +17,11 @@ public class ControllerLogin {
     public ControllerLogin() {
     }
     
-    public void isServidor(){
-        //chama tela servidor;
+    public void isServidor(String[] args) throws IOException{
+        ServerStart.main(args);
     }
     
-    public void isCliente(){
-        //chama tela cliente
+    public void isCliente(String[] args) throws IOException{
+        ClientStart.main(args);
     }
 }

@@ -20,7 +20,7 @@ import java.util.Scanner;
  *
  * @author andreellias18
  */
-public class Client {
+public class ClientStart {
     
     public static void main(String[] args) throws IOException {
         
