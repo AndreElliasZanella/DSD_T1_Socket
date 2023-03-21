@@ -8,6 +8,9 @@ public abstract class MessageHandler {
 	protected Message mensagem;
 	protected Socket connexao;
 	
+	public static String SEM_PESSOAS_CADASTRADAS = "Sem pessoas cadastradas";
+	public static String PESSOA_NAO_ENCONTRADA = "Pessoa não encontrada";
+	
 	public MessageHandler(Message mensagem, Socket connexao) {
 		super();
 		this.mensagem = mensagem;

@@ -70,7 +70,7 @@ public class ServerStart {
     }
     
     
-    public static MessageHandler processarEntrada(Message mensagem, Socket conexao) {
+    public static MessageHandler processarEntrada(Message mensagem, Socket conexao) throws IOException {
     	MessageHandler messageHandler;
     	if(mensagem.isExistsTime()) {
     		messageHandler = new TimeFutebolController(mensagem, conexao, mensagem.getTime());

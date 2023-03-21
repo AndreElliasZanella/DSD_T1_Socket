@@ -1,32 +1,42 @@
 package Controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.List;
+
+import com.google.gson.Gson;
 
 import Database.JogadorDatabase;
 import Model.Jogador;
 import Model.Message;
 
 public class JogadorController extends MessageHandler {
-	private Jogador jogador;	
+	private Jogador jogador;
+	private PrintWriter out;
+	private Gson gson;
 	
-	public JogadorController(Message mensagem, Socket connexao, Jogador jogador) {
+	public JogadorController(Message mensagem, Socket connexao, Jogador jogador) throws IOException {
 		super(mensagem, connexao);
 		this.jogador = jogador;
+		gson = new Gson();
+		out = new PrintWriter(connexao.getOutputStream(), true);
 	}
 	
 
 	@Override
 	public void insert() {
-		// TODO Auto-generated method stub
-		
+		JogadorDatabase.jogadores.add(jogador);
 	}
 
 
 
 	@Override
 	public void list() {
-		// TODO Auto-generated method stub
+		String mensagem = "Jogadores \n";
+		mensagem += JogadorDatabase.jogadores.size();
+		for( Jogador jogador : JogadorDatabase.jogadores) {
+			
+		}
 		
 	}
 
@@ -42,8 +52,22 @@ public class JogadorController extends MessageHandler {
 
 	@Override
 	public void get() {
-		// TODO Auto-generated method stub
-		
+		String retorno = MessageHandler.PESSOA_NAO_ENCONTRADA;
+		if(JogadorDatabase.jogadores.isEmpty()) {
+			retorno = MessageHandler.SEM_PESSOAS_CADASTRADAS;
+		} else {
+			Jogador encontrado = null;
+			for(Jogador jogador : JogadorDatabase.jogadores) {
+				if(jogador.getCpf().equals(jogador.getCpf())) {
+					encontrado = jogador;
+					break;
+				}
+			}
+			if(encontrado != null) {
+				retorno = gson.toJson(encontrado);
+			}
+		}
+		out.write(retorno);
 	}
 
 
@@ -52,36 +76,6 @@ public class JogadorController extends MessageHandler {
 	public void update() {
 		// TODO Auto-generated method stub
 		
-	}
-
-
-
-	public void addJogador(Jogador jogador) {
-		JogadorDatabase.jogadores.add(jogador);
-	}
-	
-	public Jogador getJogador(String cpf) {
-		Jogador encontrado = null;
-		for(Jogador jogador : JogadorDatabase.jogadores) {
-			if(jogador.getCpf().equals(cpf)) {
-				encontrado = jogador;
-				break;
-			}
-		}
-		return encontrado;
-	}
-	
-	public void deleteJogador(String cpf) throws Exception {
-		Jogador jogador = this.getJogador(cpf);
-		if(jogador != null) {
-			JogadorDatabase.jogadores.remove(jogador);
-		} else {
-			throw new Exception("Jogador não encontrado");
-		}
-	}
-	
-	public List<Jogador> listjogador(){
-		return JogadorDatabase.jogadores;
 	}
 
 }
