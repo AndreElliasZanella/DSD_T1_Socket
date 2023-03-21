@@ -10,6 +10,7 @@ public abstract class MessageHandler {
 	
 	public static String SEM_PESSOAS_CADASTRADAS = "Sem pessoas cadastradas";
 	public static String PESSOA_NAO_ENCONTRADA = "Pessoa não encontrada";
+	public static String PESSOA_REMOVIDA_SUCESSO = "Pessoa removida com sucesso";
 	
 	public MessageHandler(Message mensagem, Socket connexao) {
 		super();

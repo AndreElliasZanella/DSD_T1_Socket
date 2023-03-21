@@ -35,16 +35,31 @@ public class JogadorController extends MessageHandler {
 		String mensagem = "Jogadores \n";
 		mensagem += JogadorDatabase.jogadores.size();
 		for( Jogador jogador : JogadorDatabase.jogadores) {
-			
+			mensagem += jogador.toString() + "\n";
 		}
-		
+		out.write(mensagem);
 	}
-
 
 
 	@Override
 	public void delete() {
-		// TODO Auto-generated method stub
+		String retorno = MessageHandler.PESSOA_NAO_ENCONTRADA;
+		if(JogadorDatabase.jogadores.isEmpty()) {
+			retorno = MessageHandler.SEM_PESSOAS_CADASTRADAS;
+		} else {
+			Jogador encontrado = null;
+			for(Jogador jogador : JogadorDatabase.jogadores) {
+				if(jogador.getCpf().equals(jogador.getCpf())) {
+					encontrado = jogador;
+					break;
+				}
+			}
+			if(encontrado != null) {
+				JogadorDatabase.jogadores.remove(encontrado);
+				retorno = MessageHandler.PESSOA_REMOVIDA_SUCESSO;
+			}
+		}
+		out.write(retorno);
 		
 	}
 
@@ -74,7 +89,20 @@ public class JogadorController extends MessageHandler {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		String retorno = MessageHandler.PESSOA_NAO_ENCONTRADA;
+		Jogador encontrado = null;
+		for(int i = 0; i <= JogadorDatabase.jogadores.size(); i++) {
+			if(jogador.getCpf().equals(jogador.getCpf())) {
+				encontrado = jogador;
+				JogadorDatabase.jogadores.remove(i);
+				break;
+			}
+		}
+		if(encontrado != null) {
+			JogadorDatabase.jogadores.remove(encontrado);
+			retorno = MessageHandler.PESSOA_REMOVIDA_SUCESSO;
+		}
+		out.write(retorno);
 		
 	}
 
