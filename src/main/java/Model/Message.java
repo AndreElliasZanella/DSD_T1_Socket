@@ -5,6 +5,9 @@ public class Message {
 	private TimeFutebol time;
 	private String metodo;
 	
+        public Message() {
+	}
+        
 	public Message(Pessoa pessoa, TimeFutebol time, String metodo) {
 		super();
 		this.pessoa = pessoa;
@@ -85,6 +88,4 @@ public class Message {
 			return null;
 		}
 	}
-	
-	
 }
