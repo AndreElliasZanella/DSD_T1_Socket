@@ -6,8 +6,6 @@ package Client;
 
 import Interface.Controller.ControllerEnvioDados;
 import Interface.View.EnvioDados;
-import Model.Message;
-import Model.TimeFutebol;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,41 +20,35 @@ import java.util.Scanner;
  */
 public class ClientStart {
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args, String dados) throws IOException {
         
-        EnvioDados tela = new EnvioDados();
         Scanner scan = new Scanner(System.in);
         scan.useDelimiter("\n"); // rodar via NetBeans precisa disso para identificar o <enter>
-
+        
         Socket conn = null;
         Gson gson = new Gson();
         
+        //Fazer para se conectar a cada comando
+        //Para isso vai ter que ativar a conexão ao clicr no botão enviar da tela
+        
         try {
-            conn = new Socket("127.0.0.1", 65000);
+            conn = new Socket("localhost", 80);
             System.out.println("Conexão estabelecida.");
-            PrintWriter out = new PrintWriter(conn.getOutputStream(), true); // true para autoflush
+            PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            while (true) {
-                // ler sentença do usuário e enviar
-                tela.exibirTela();
-                String msgEnviar = tela.retDados();
-                if (msgEnviar.equals("exit")) {
-                    break;
-                }else{
-                    out.write(msgEnviar);
-                }
-                tela.limparTela();
-                
-                // ler sentença recebida
-                System.out.println("Aguardando mensagem...");
-                String msgRecebida = in.readLine();
-                if (msgRecebida == null){
-                    System.out.println("Chat encerrado pelo Servidor.");
-                    break;
-                }
-                System.out.println("Retorno: " + msgRecebida);
+            //enviar
+            String msgEnviar = dados;
+            out.println(msgEnviar);
+
+            // ler sentença recebida
+            System.out.println("Aguardando mensagem...");
+            String msgRecebida = in.readLine();
+            if (msgRecebida == null){
+                System.out.println("Error.");
             }
+            System.out.println("Retorno: " + msgRecebida);
+                
         } catch (IOException e) {
             System.out.println("Deu exception");
         } finally {

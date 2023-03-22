@@ -13,9 +13,10 @@ import Interface.View.Login;
 public class Sistem {
     
     public static void main(String[] args) {
-        Login login = new Login();
         
-        login.exibirTela(args);
+        Login login = new Login(args);
+        
+        login.exibirTela();
         
         
     }

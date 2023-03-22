@@ -26,6 +26,8 @@ public class JogadorController extends MessageHandler {
 	@Override
 	public void insert() {
 		JogadorDatabase.jogadores.add(jogador);
+                String mensagem = "Jogador inserido!";
+                out.write(mensagem);
 	}
 
 

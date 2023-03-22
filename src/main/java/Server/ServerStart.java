@@ -32,7 +32,7 @@ public class ServerStart {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException{
-        ServerSocket server = new ServerSocket(65000);
+        ServerSocket server = new ServerSocket(80);
         server.setReuseAddress(true);
         
         Scanner scan = new Scanner(System.in);
@@ -40,32 +40,35 @@ public class ServerStart {
         Gson gson = new Gson();
         
     	Socket conn = null;
+        
+        while (true){
 
-        try {
-            System.out.println("Servidor iniciado. Aguardando conexão...");
-            conn = server.accept();
-            System.out.println("Conexão recebida.");
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String msgRecebida = in.readLine();
-            
-            Message mensagem = gson.fromJson(msgRecebida, Message.class);
-            
-            MessageHandler messageHandler = processarEntrada(mensagem, conn);
-            messageHandler.processar();
-            
-            PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
-            
-        } catch (Exception e) {
-            System.out.println("Deu exception");
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                conn.close();
-                System.out.println("Socket encerrado.");
+            try {
+                System.out.println("Servidor iniciado. Aguardando conexão...");
+                conn = server.accept();
+                System.out.println("Conexão recebida.");
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String msgRecebida = in.readLine();
+
+                Message mensagem = gson.fromJson(msgRecebida, Message.class);
+
+                MessageHandler messageHandler = processarEntrada(mensagem, conn);
+                messageHandler.processar();
+
+                //PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
+
+            } catch (Exception e) {
+                System.out.println("Deu exception");
+                e.printStackTrace();
+            } finally {
+                if (conn != null) {
+                    conn.close();
+                    System.out.println("Socket encerrado.");
+                }
+//                server.close();
+//                scan.close();
+//                System.out.println("ServerSocket encerrado.");
             }
-            server.close();
-            scan.close();
-            System.out.println("ServerSocket encerrado.");
         }
     }
     
@@ -77,7 +80,7 @@ public class ServerStart {
     	} else if(mensagem.isExistsTecnico()) {
     		messageHandler = new TecnicoController(mensagem, conexao, (Tecnico) mensagem.getPessoa());
     	} else {
-    		messageHandler = new JogadorController(mensagem, conexao, (Jogador) mensagem.getPessoa());
+    		messageHandler = new JogadorController(mensagem, conexao, mensagem.getJogador());
     	}
     	return messageHandler;
     }

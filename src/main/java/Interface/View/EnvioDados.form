@@ -302,12 +302,18 @@
     <Component class="javax.swing.JTextField" name="cbNomeJ">
     </Component>
     <Component class="javax.swing.JTextField" name="cbCPFJ">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cbEnderecoJ">
     </Component>
     <Component class="javax.swing.JTextField" name="cbContatoJ">
     </Component>
     <Component class="javax.swing.JTextField" name="cbIdadeJ">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -335,6 +341,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cbCamisaJ">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
@@ -342,6 +351,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cbPosicaoJ">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>

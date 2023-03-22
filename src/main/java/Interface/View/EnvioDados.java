@@ -4,6 +4,7 @@
  */
 package Interface.View;
 
+import Client.ClientStart;
 import Interface.Controller.ControllerEnvioDados;
 import Model.Jogador;
 import Model.Message;
@@ -12,6 +13,9 @@ import Model.TimeFutebol;
 import com.google.gson.Gson;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,6 +23,7 @@ import java.awt.event.ActionListener;
  */
 public class EnvioDados extends javax.swing.JFrame {
     
+    String[] args;
     private ControllerEnvioDados controle;
     
     Gson gson = new Gson();
@@ -26,15 +31,22 @@ public class EnvioDados extends javax.swing.JFrame {
     /**
      * Creates new form EnvioDados
      */
-    public EnvioDados() {
+    public EnvioDados(String[] args) {
+        this.args = args;
         controle = new ControllerEnvioDados();
         initComponents();
-        
+        exibirTela();
         btEnviar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String retorno = gson.toJson(carregarMessage(), Message.class);
                 controle.setMessage(retorno);
+                try {
+                    startCliente();
+                } catch (IOException ex) {
+                    Logger.getLogger(EnvioDados.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                limparTela();
             }
         });
         
@@ -51,12 +63,17 @@ public class EnvioDados extends javax.swing.JFrame {
         return controle.getDados();
     }
     
+    public void startCliente() throws IOException{
+        ClientStart.main(args, retDados());
+    }
+    
     public Message carregarMessage(){
         
         Message message = new Message();
         message.setMetodo(metodo.getSelectedItem().toString());
+        message.setTipo(tipo.getSelectedItem().toString());
         if (metodo.getSelectedItem().toString().equals((String)"LIST")) {
-            switch (metodo.getSelectedItem().toString()) {
+            switch (tipo.getSelectedItem().toString()) {
                 case "JOGADOR":
                     Jogador jogador = new Jogador();
                     break;
@@ -68,18 +85,20 @@ public class EnvioDados extends javax.swing.JFrame {
                     break;
             }
         }else{
-            if (!cbCPFJ.getText().equals("")){
-                Jogador jogador = new Jogador(Integer.parseInt(cbCamisaJ.getText()), Integer.parseInt(cbPosicaoJ.getText()),cbCPFJ.getText(),cbNomeJ.getText(),cbEnderecoJ.getText(),cbContatoJ.getText(),Integer.parseInt(cbIdadeJ.getText()));
-                message.setPessoa(jogador);
+            if (!(cbCPFJ.getText().equals(""))){
+                String camisa = cbCamisaJ.getText();
+                String posicao = cbPosicaoJ.getText();
+                Jogador jogador = new Jogador(Integer.parseInt(camisa), Integer.parseInt(posicao), cbCPFJ.getText(), cbNomeJ.getText(), cbEnderecoJ.getText(), cbContatoJ.getText(), Integer.parseInt(cbIdadeJ.getText()));
+                message.setJogador(jogador);
             }
-            if (!cbCPFT.getText().equals("")){
-                Tecnico tecnico = new Tecnico(Integer.parseInt(cbExpT.getText()), Integer.parseInt(cbLicensaT.getText()),cbCPFT.getText(),cbNomeT.getText(),cbEnderecoT.getText(),cbContatoT.getText(),Integer.parseInt(cbIdadeT.getText()));
-                message.setPessoa(tecnico);
-            }
-            if (!cbNomeTime.getText().equals("")){
-                TimeFutebol time = new TimeFutebol(cbNomeTime.getText(),Integer.parseInt(cbCategoriaTime.getText()),cbEstadioTime.getText());
-                message.setTime(time);
-            }
+//            if (!cbCPFT.getText().equals("")){
+//                Tecnico tecnico = new Tecnico(Integer.parseInt(cbExpT.getText()), Integer.parseInt(cbLicensaT.getText()),cbCPFT.getText(),cbNomeT.getText(),cbEnderecoT.getText(),cbContatoT.getText(),Integer.parseInt(cbIdadeT.getText()));
+//                message.setPessoa(tecnico);
+//            }
+//            if (!cbNomeTime.getText().equals("")){
+//                TimeFutebol time = new TimeFutebol(cbNomeTime.getText(),Integer.parseInt(cbCategoriaTime.getText()),cbEstadioTime.getText());
+//                message.setTime(time);
+//            }
         }
         return message;
     }
@@ -178,6 +197,10 @@ public class EnvioDados extends javax.swing.JFrame {
 
         jLabel4.setText("TÉCNICO");
 
+        cbCPFJ.setText("0");
+
+        cbIdadeJ.setText("0");
+
         jLabel5.setText("CPF");
 
         jLabel6.setText("Nome");
@@ -188,7 +211,11 @@ public class EnvioDados extends javax.swing.JFrame {
 
         jLabel9.setText("Idade");
 
+        cbCamisaJ.setText("0");
+
         jLabel10.setText("N camisa");
+
+        cbPosicaoJ.setText("0");
 
         jLabel11.setText("Posicao");
 
@@ -438,11 +465,11 @@ public class EnvioDados extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EnvioDados().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new EnvioDados().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

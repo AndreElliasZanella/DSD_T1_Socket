@@ -4,9 +4,13 @@
  */
 package Interface.View;
 
+import Client.ClientStart;
 import Interface.Controller.ControllerLogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,27 +23,37 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Login(String[] args) {
+        this.args = args;
         this.controle = new ControllerLogin();
         initComponents();
         
         btServidor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controle.isServidor(args);
+                try {
+                    controle.isServidor(args);
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                FecharTela();
             }
         });
         
         btCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controle.isCliente(args);
+                try {
+                    controle.isCliente(args);
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                FecharTela();
             }
         });
     }
     
-    public void exibirTela(String[] argsAux){
-        args = argsAux;
+    public void exibirTela(){
         setVisible(true);
     }
     
@@ -117,11 +131,11 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Login().setVisible(true);
+//            }
+//        });
         
     }
 

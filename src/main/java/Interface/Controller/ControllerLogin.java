@@ -5,6 +5,7 @@
 package Interface.Controller;
 
 import Client.ClientStart;
+import Interface.View.EnvioDados;
 import Server.ServerStart;
 import java.io.IOException;
 
@@ -22,6 +23,6 @@ public class ControllerLogin {
     }
     
     public void isCliente(String[] args) throws IOException{
-        ClientStart.main(args);
+        EnvioDados envio = new EnvioDados(args);
     }
 }
