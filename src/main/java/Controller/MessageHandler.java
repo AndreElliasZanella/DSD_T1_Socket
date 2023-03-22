@@ -11,6 +11,11 @@ public abstract class MessageHandler {
 	public static String SEM_PESSOAS_CADASTRADAS = "Sem pessoas cadastradas";
 	public static String PESSOA_NAO_ENCONTRADA = "Pessoa não encontrada";
 	public static String PESSOA_REMOVIDA_SUCESSO = "Pessoa removida com sucesso";
+	public static String TIME_NAO_ENCONTRADO = "Time não encontrado";
+	public static String TIME_REMOVIDO_SUCESSO = "Time removido com sucesso";
+	public static String SEM_TIMES_CADASTRADAS = "Sem times cadastradas";
+	public static String PESSOA_ATUALIZADA = "Pessoa atualizada com sucesso";
+	public static String TIME_ATUALIZADO = "Time atualizado com sucesso";
 	
 	public MessageHandler(Message mensagem, Socket connexao) {
 		super();

@@ -27,8 +27,8 @@ public class JogadorController extends MessageHandler {
 	@Override
 	public void insert() {
 		JogadorDatabase.jogadores.add(jogador);
-                String mensagem = "Jogador inserido!";
-                out.println(SenderMessage.converteMessage(mensagem));
+		String mensagem = "Jogador inserido!";
+		out.println(SenderMessage.converteMessage(mensagem));
 	}
 
 
@@ -37,7 +37,7 @@ public class JogadorController extends MessageHandler {
 		String mensagem = "Jogadores\n";
 		mensagem += JogadorDatabase.jogadores.size() + "\n";
 		for( Jogador jogador : JogadorDatabase.jogadores) {
-			mensagem += jogador.toString();
+			mensagem += jogador.toString() + "\n";
 		}
 		out.println(SenderMessage.converteMessage(mensagem));
 	}
@@ -51,7 +51,7 @@ public class JogadorController extends MessageHandler {
 		} else {
 			Jogador encontrado = null;
 			for(Jogador jogador : JogadorDatabase.jogadores) {
-				if(jogador.getCpf().equals(jogador.getCpf())) {
+				if(jogador.getCpf().equals(this.jogador.getCpf())) {
 					encontrado = jogador;
 					break;
 				}
@@ -74,7 +74,7 @@ public class JogadorController extends MessageHandler {
 		} else {
 			Jogador encontrado = null;
 			for(Jogador jogador : JogadorDatabase.jogadores) {
-				if(jogador.getCpf().equals(jogador.getCpf())) {
+				if(jogador.getCpf().equals(this.jogador.getCpf())) {
 					encontrado = jogador;
 					break;
 				}
@@ -93,7 +93,7 @@ public class JogadorController extends MessageHandler {
 		String retorno = MessageHandler.PESSOA_NAO_ENCONTRADA;
 		Jogador encontrado = null;
 		for(int i = 0; i <= JogadorDatabase.jogadores.size(); i++) {
-			if(jogador.getCpf().equals(jogador.getCpf())) {
+			if(jogador.getCpf().equals(JogadorDatabase.jogadores.get(i).getCpf())) {
 				encontrado = jogador;
 				JogadorDatabase.jogadores.remove(i);
 				break;
@@ -101,7 +101,8 @@ public class JogadorController extends MessageHandler {
 		}
 		if(encontrado != null) {
 			JogadorDatabase.jogadores.remove(encontrado);
-			retorno = MessageHandler.PESSOA_REMOVIDA_SUCESSO;
+			insert();
+			retorno = "Pessoa atualizada com sucesso!";
 		}
 		out.println(SenderMessage.converteMessage(retorno));
 	}

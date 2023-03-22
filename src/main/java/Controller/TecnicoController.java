@@ -37,7 +37,7 @@ public class TecnicoController extends MessageHandler {
 		String mensagem = "Técnicos\n";
 		mensagem += TecnicoDatabase.tecnicos.size() + "\n";
 		for( Tecnico tecnico : TecnicoDatabase.tecnicos) {
-			mensagem += tecnico.toString();
+			mensagem += tecnico.toString() + "\n";
 		}
 		out.println(SenderMessage.converteMessage(mensagem));
 		
@@ -51,7 +51,7 @@ public class TecnicoController extends MessageHandler {
 		} else {
 			Tecnico encontrado = null;
 			for(Tecnico tecnico : TecnicoDatabase.tecnicos) {
-				if(tecnico.getCpf().equals(tecnico.getCpf())) {
+				if(tecnico.getCpf().equals(this.tecnico.getCpf())) {
 					encontrado = tecnico;
 					break;
 				}
@@ -73,7 +73,7 @@ public class TecnicoController extends MessageHandler {
 		} else {
 			Tecnico encontrado = null;
 			for(Tecnico tecnico : TecnicoDatabase.tecnicos) {
-				if(tecnico.getCpf().equals(tecnico.getCpf())) {
+				if(tecnico.getCpf().equals(this.tecnico.getCpf())) {
 					encontrado = tecnico;
 					break;
 				}
@@ -90,7 +90,7 @@ public class TecnicoController extends MessageHandler {
 		String retorno = MessageHandler.PESSOA_NAO_ENCONTRADA;
 		Tecnico encontrado = null;
 		for(int i = 0; i <= TecnicoDatabase.tecnicos.size(); i++) {
-			if(tecnico.getCpf().equals(tecnico.getCpf())) {
+			if(tecnico.getCpf().equals(this.tecnico.getCpf())) {
 				encontrado = tecnico;
 				TecnicoDatabase.tecnicos.remove(i);
 				break;
@@ -98,7 +98,8 @@ public class TecnicoController extends MessageHandler {
 		}
 		if(encontrado != null) {
 			TecnicoDatabase.tecnicos.remove(encontrado);
-			retorno = MessageHandler.PESSOA_REMOVIDA_SUCESSO;
+			insert();
+			retorno = MessageHandler.PESSOA_ATUALIZADA;
 		}
 		out.println(SenderMessage.converteMessage(retorno));		
 	}	
