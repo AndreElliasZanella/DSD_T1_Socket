@@ -6,6 +6,7 @@ package Interface.Controller;
 
 import Client.ClientStart;
 import Interface.View.EnvioDados;
+import Interface.View.Login;
 import Server.ServerStart;
 import java.io.IOException;
 
@@ -18,11 +19,11 @@ public class ControllerLogin {
     public ControllerLogin() {
     }
     
-    public void isServidor(String[] args) throws IOException{
-        ServerStart.main(args);
+    public void isServidor(String[] args, Login tela) throws IOException{
+        ServerStart.main(args, tela);
     }
     
-    public void isCliente(String[] args) throws IOException{
-        EnvioDados envio = new EnvioDados(args);
+    public void isCliente(String[] args, Login tela) throws IOException{
+        EnvioDados envio = new EnvioDados(args, tela);
     }
 }

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.Context;
 
 /**
  *
@@ -27,16 +28,16 @@ public class Login extends javax.swing.JFrame {
         this.args = args;
         this.controle = new ControllerLogin();
         initComponents();
+        Login este = this;
         
         btServidor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controle.isServidor(args);
+                    controle.isServidor(args, este);
                 } catch (IOException ex) {
                     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                FecharTela();
             }
         });
         
@@ -44,17 +45,17 @@ public class Login extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controle.isCliente(args);
+                    controle.isCliente(args, este);
                 } catch (IOException ex) {
                     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                FecharTela();
             }
         });
     }
     
     public void exibirTela(){
         setVisible(true);
+        setLocationRelativeTo(null); 
     }
     
     public void FecharTela(){

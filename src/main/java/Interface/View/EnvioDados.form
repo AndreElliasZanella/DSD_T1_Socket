@@ -394,6 +394,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cbIdadeT">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel17">
       <Properties>
@@ -401,6 +404,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cbExpT">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel18">
       <Properties>
@@ -408,6 +414,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cbLicensaT">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel19">
       <Properties>
@@ -417,6 +426,9 @@
     <Component class="javax.swing.JTextField" name="cbNomeTime">
     </Component>
     <Component class="javax.swing.JTextField" name="cbCategoriaTime">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel20">
       <Properties>

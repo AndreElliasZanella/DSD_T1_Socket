@@ -20,7 +20,7 @@ import java.util.Scanner;
  */
 public class ClientStart {
     
-    public static void main(String[] args, String dados) throws IOException {
+    public static void main(String[] args, String dados, EnvioDados tela) throws IOException {
         
         Scanner scan = new Scanner(System.in);
         scan.useDelimiter("\n"); // rodar via NetBeans precisa disso para identificar o <enter>
@@ -48,6 +48,7 @@ public class ClientStart {
                 System.out.println("Error.");
             }
             System.out.println("Retorno: " + msgRecebida);
+            tela.exibirMensagem(msgRecebida);
                 
         } catch (IOException e) {
             System.out.println("Deu exception");

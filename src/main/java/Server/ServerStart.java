@@ -18,6 +18,7 @@ import Controller.JogadorController;
 import Controller.MessageHandler;
 import Controller.TecnicoController;
 import Controller.TimeFutebolController;
+import Interface.View.Login;
 import Model.Jogador;
 import Model.Message;
 import Model.Tecnico;
@@ -31,15 +32,14 @@ public class ServerStart {
      * @param args the command line arguments
      * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args, Login login) throws IOException{
         ServerSocket server = new ServerSocket(80);
         server.setReuseAddress(true);
-        
-        Scanner scan = new Scanner(System.in);
         
         Gson gson = new Gson();
         
     	Socket conn = null;
+        login.FecharTela();
         
         while (true){
 
@@ -54,8 +54,6 @@ public class ServerStart {
 
                 MessageHandler messageHandler = processarEntrada(mensagem, conn);
                 messageHandler.processar();
-
-                //PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
 
             } catch (Exception e) {
                 System.out.println("Deu exception");

@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,11 +32,13 @@ public class EnvioDados extends javax.swing.JFrame {
     /**
      * Creates new form EnvioDados
      */
-    public EnvioDados(String[] args) {
+    public EnvioDados(String[] args, Login tela) {
         this.args = args;
         controle = new ControllerEnvioDados();
         initComponents();
+        tela.FecharTela();
         exibirTela();
+        
         btEnviar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,8 +56,8 @@ public class EnvioDados extends javax.swing.JFrame {
         btSair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String retorno = "exit";
-                controle.setMessage(retorno);
+                FecharTela();
+                tela.exibirTela();
             }
         });
     }
@@ -64,7 +67,7 @@ public class EnvioDados extends javax.swing.JFrame {
     }
     
     public void startCliente() throws IOException{
-        ClientStart.main(args, retDados());
+        ClientStart.main(args, retDados(), this);
     }
     
     public Message carregarMessage(){
@@ -105,31 +108,37 @@ public class EnvioDados extends javax.swing.JFrame {
     
     public void exibirTela(){
         setVisible(true);
+        setLocationRelativeTo(null);
     }
     
     public void FecharTela(){
         setVisible(false);
+        this.dispose();
+    }
+    
+    public void exibirMensagem(String msg){
+        JOptionPane.showMessageDialog(null, msg);
     }
     
     public void limparTela(){
         cbNomeJ.setText("");
         cbCPFJ.setText("");
-        cbCamisaJ.setText("");
+        cbCamisaJ.setText("0");
         cbContatoJ.setText("");
         cbEnderecoJ.setText("");
-        cbIdadeJ.setText("");
-        cbPosicaoJ.setText("");
+        cbIdadeJ.setText("0");
+        cbPosicaoJ.setText("0");
         
         cbNomeT.setText("");
         cbCPFT.setText("");
         cbContatoT.setText("");
         cbEnderecoT.setText("");
-        cbExpT.setText("");
-        cbIdadeT.setText("");
-        cbLicensaT.setText("");
+        cbExpT.setText("0");
+        cbIdadeT.setText("0");
+        cbLicensaT.setText("0");
         
         cbNomeTime.setText("");
-        cbCategoriaTime.setText("");
+        cbCategoriaTime.setText("0");
         cbEstadioTime.setText("");
     }
     /**
@@ -229,11 +238,19 @@ public class EnvioDados extends javax.swing.JFrame {
 
         jLabel16.setText("Idade");
 
+        cbIdadeT.setText("0");
+
         jLabel17.setText("Anos Experiência");
+
+        cbExpT.setText("0");
 
         jLabel18.setText("Licença");
 
+        cbLicensaT.setText("0");
+
         jLabel19.setText("Nome");
+
+        cbCategoriaTime.setText("0");
 
         jLabel20.setText("Categoria");
 
