@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import Database.JogadorDatabase;
 import Model.Jogador;
 import Model.Message;
+import util.SenderMessage;
 
 public class JogadorController extends MessageHandler {
 	private Jogador jogador;
@@ -27,19 +28,18 @@ public class JogadorController extends MessageHandler {
 	public void insert() {
 		JogadorDatabase.jogadores.add(jogador);
                 String mensagem = "Jogador inserido!";
-                out.write(mensagem);
+                out.println(SenderMessage.converteMessage(mensagem));
 	}
-
 
 
 	@Override
 	public void list() {
-		String mensagem = "Jogadores \n";
-		mensagem += JogadorDatabase.jogadores.size();
+		String mensagem = "Jogadores\n";
+		mensagem += JogadorDatabase.jogadores.size() + "\n";
 		for( Jogador jogador : JogadorDatabase.jogadores) {
-			mensagem += jogador.toString() + "\n";
+			mensagem += jogador.toString();
 		}
-		out.write(mensagem);
+		out.println(SenderMessage.converteMessage(mensagem));
 	}
 
 
@@ -61,8 +61,7 @@ public class JogadorController extends MessageHandler {
 				retorno = MessageHandler.PESSOA_REMOVIDA_SUCESSO;
 			}
 		}
-		out.write(retorno);
-		
+		out.println(SenderMessage.converteMessage(retorno));
 	}
 
 
@@ -84,7 +83,7 @@ public class JogadorController extends MessageHandler {
 				retorno = gson.toJson(encontrado);
 			}
 		}
-		out.write(retorno);
+		out.println(SenderMessage.converteMessage(retorno));
 	}
 
 
@@ -104,8 +103,7 @@ public class JogadorController extends MessageHandler {
 			JogadorDatabase.jogadores.remove(encontrado);
 			retorno = MessageHandler.PESSOA_REMOVIDA_SUCESSO;
 		}
-		out.write(retorno);
-		
+		out.println(SenderMessage.converteMessage(retorno));
 	}
 
 }
