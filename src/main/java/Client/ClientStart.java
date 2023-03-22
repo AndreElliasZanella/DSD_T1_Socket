@@ -21,7 +21,7 @@ import java.util.Scanner;
  */
 public class ClientStart {
     
-    public static void main(String[] args, String dados, EnvioDados tela) throws IOException {
+    public static void main(String[] args, String dados, EnvioDados tela, String ip) throws IOException {
         
         Scanner scan = new Scanner(System.in);
         scan.useDelimiter("\n"); // rodar via NetBeans precisa disso para identificar o <enter>
@@ -33,7 +33,7 @@ public class ClientStart {
         //Para isso vai ter que ativar a conexão ao clicr no botão enviar da tela
         
         try {
-            conn = new Socket("localhost", 80);
+            conn = new Socket(ip, 80);
             System.out.println("Conexão estabelecida.");
             PrintWriter out = new PrintWriter(conn.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));

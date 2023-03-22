@@ -23,7 +23,7 @@ public class ControllerLogin {
         ServerStart.main(args, tela);
     }
     
-    public void isCliente(String[] args, Login tela) throws IOException{
-        EnvioDados envio = new EnvioDados(args, tela);
+    public void isCliente(String[] args, Login tela, String ip) throws IOException{
+        EnvioDados envio = new EnvioDados(args, tela, ip);
     }
 }

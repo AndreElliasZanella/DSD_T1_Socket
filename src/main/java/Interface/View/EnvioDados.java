@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 public class EnvioDados extends javax.swing.JFrame {
     
     String[] args;
+    String ipConexao;
     private ControllerEnvioDados controle;
     
     Gson gson = new Gson();
@@ -32,8 +33,9 @@ public class EnvioDados extends javax.swing.JFrame {
     /**
      * Creates new form EnvioDados
      */
-    public EnvioDados(String[] args, Login tela) {
+    public EnvioDados(String[] args, Login tela, String ip) {
         this.args = args;
+        this.ipConexao = ip;
         controle = new ControllerEnvioDados();
         initComponents();
         tela.FecharTela();
@@ -67,7 +69,7 @@ public class EnvioDados extends javax.swing.JFrame {
     }
     
     public void startCliente() throws IOException{
-        ClientStart.main(args, retDados(), this);
+        ClientStart.main(args, retDados(), this, ipConexao);
     }
     
     public Message carregarMessage(){

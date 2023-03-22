@@ -22,6 +22,7 @@ import Interface.View.Login;
 import Model.Jogador;
 import Model.Message;
 import Model.Tecnico;
+import java.net.InetAddress;
 /**
  *
  * @author andreellias18
@@ -37,6 +38,7 @@ public class ServerStart {
         ServerSocket server = new ServerSocket(80);
         server.setReuseAddress(true);
         
+        InetAddress ipCon = InetAddress.getLocalHost();
         Login tela = login;
         Gson gson = new Gson();
         
@@ -44,9 +46,8 @@ public class ServerStart {
         tela.FecharTela();
         
         while (true){
-
+            System.out.println("Servidor iniciado. IP:"+ ipCon.getHostAddress() +". Aguardando conexão...");
             try {
-                System.out.println("Servidor iniciado. Aguardando conexão...");
                 conn = server.accept();
                 System.out.println("Conexão recebida.");
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
