@@ -30,16 +30,18 @@ public class ServerStart {
 
     /**
      * @param args the command line arguments
+     * @param login
      * @throws java.io.IOException
      */
     public static void main(String[] args, Login login) throws IOException{
         ServerSocket server = new ServerSocket(80);
         server.setReuseAddress(true);
         
+        Login tela = login;
         Gson gson = new Gson();
         
     	Socket conn = null;
-        login.FecharTela();
+        tela.FecharTela();
         
         while (true){
 

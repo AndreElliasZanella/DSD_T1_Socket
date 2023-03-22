@@ -78,30 +78,31 @@ public class EnvioDados extends javax.swing.JFrame {
         if (metodo.getSelectedItem().toString().equals((String)"LIST")) {
             switch (tipo.getSelectedItem().toString()) {
                 case "JOGADOR":
-                    Jogador jogador = new Jogador();
+                    Jogador jogador = new Jogador(0, 0, "listarJog", "", "", "", 0);
+                    message.setJogador(jogador);
                     break;
                 case "TECNICO":
-                    Tecnico tecnico = new Tecnico();
+                    Tecnico tecnico = new Tecnico(0, 0, "listar", "", "", "", 0);
+                    message.setTecnico(tecnico);
                     break;
                 case "TIME":
                     TimeFutebol time = new TimeFutebol();
+                    message.setTime(time);
                     break;
             }
         }else{
             if (!(cbCPFJ.getText().equals(""))){
-                String camisa = cbCamisaJ.getText();
-                String posicao = cbPosicaoJ.getText();
-                Jogador jogador = new Jogador(Integer.parseInt(camisa), Integer.parseInt(posicao), cbCPFJ.getText(), cbNomeJ.getText(), cbEnderecoJ.getText(), cbContatoJ.getText(), Integer.parseInt(cbIdadeJ.getText()));
+                Jogador jogador = new Jogador(Integer.parseInt(cbCamisaJ.getText()), Integer.parseInt(cbPosicaoJ.getText()), cbCPFJ.getText(), cbNomeJ.getText(), cbEnderecoJ.getText(), cbContatoJ.getText(), Integer.parseInt(cbIdadeJ.getText()));
                 message.setJogador(jogador);
             }
-//            if (!cbCPFT.getText().equals("")){
-//                Tecnico tecnico = new Tecnico(Integer.parseInt(cbExpT.getText()), Integer.parseInt(cbLicensaT.getText()),cbCPFT.getText(),cbNomeT.getText(),cbEnderecoT.getText(),cbContatoT.getText(),Integer.parseInt(cbIdadeT.getText()));
-//                message.setPessoa(tecnico);
-//            }
-//            if (!cbNomeTime.getText().equals("")){
-//                TimeFutebol time = new TimeFutebol(cbNomeTime.getText(),Integer.parseInt(cbCategoriaTime.getText()),cbEstadioTime.getText());
-//                message.setTime(time);
-//            }
+            if (!cbCPFT.getText().equals("")){
+                Tecnico tecnico = new Tecnico(Integer.parseInt(cbExpT.getText()), Integer.parseInt(cbLicensaT.getText()),cbCPFT.getText(),cbNomeT.getText(),cbEnderecoT.getText(),cbContatoT.getText(),Integer.parseInt(cbIdadeT.getText()));
+                message.setTecnico(tecnico);
+            }
+            if (!cbNomeTime.getText().equals("")){
+                TimeFutebol time = new TimeFutebol(cbNomeTime.getText(),Integer.parseInt(cbCategoriaTime.getText()),cbEstadioTime.getText());
+                message.setTime(time);
+            }
         }
         return message;
     }
@@ -205,8 +206,6 @@ public class EnvioDados extends javax.swing.JFrame {
         jLabel3.setText("JOGADOR");
 
         jLabel4.setText("TÉCNICO");
-
-        cbCPFJ.setText("0");
 
         cbIdadeJ.setText("0");
 

@@ -3,6 +3,7 @@ package Model;
 public class Message {
     private Pessoa pessoa;
     private Jogador jogador;
+    private Tecnico tecnico;
     private TimeFutebol time;
     private String metodo;
     private String tipo;
@@ -37,11 +38,8 @@ public class Message {
     }
 
     public boolean isExistsTecnico() {
-            if(pessoa != null) {
-                    Class<?> obj = pessoa.getClass();
-                    if(obj.equals(Tecnico.class)) {
-                            return true;
-                    }
+            if(tecnico != null) {
+                    return true;
             }
             return false;
     }
@@ -54,6 +52,14 @@ public class Message {
         this.jogador = jogador;
     }
 
+    public Tecnico getTecnico() {
+        return tecnico;
+    }
+
+    public void setTecnico(Tecnico tecnico) {
+        this.tecnico = tecnico;
+    }
+    
     public String getTipo() {
         return tipo;
     }

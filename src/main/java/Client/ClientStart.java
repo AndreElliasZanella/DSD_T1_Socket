@@ -48,9 +48,10 @@ public class ClientStart {
             Message retorno = gson.fromJson(msgRecebida, Message.class);
             if (retorno.getRetorno() == null){
                 System.out.println("Retorno vazio!");
+            }else{
+                System.out.println("Retorno: " + retorno.getRetorno());
+                tela.exibirMensagem(retorno.getRetorno());
             }
-            System.out.println("Retorno: " + retorno.getRetorno());
-            tela.exibirMensagem(retorno.getRetorno());
                 
         } catch (IOException e) {
             System.out.println("Deu exception");
