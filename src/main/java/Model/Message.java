@@ -22,19 +22,19 @@ public class Message {
             this.metodo = metodo;
     }
 
-	public boolean isExistsTime() {
-		if (time != null) {
-			return true;
-		}
-		return false;
-	}
+    public boolean isExistsTime() {
+            if (time != null) {
+                    return true;
+            }
+            return false;
+    }
 
-	public boolean isExistsJogador() {
-		if (jogador != null) {
-			return true;
-		}
-		return false;
-	}
+    public boolean isExistsJogador() {
+            if (jogador != null) {
+                    return true;
+            }
+            return false;
+    }
 
     public boolean isExistsTecnico() {
             if(pessoa != null) {

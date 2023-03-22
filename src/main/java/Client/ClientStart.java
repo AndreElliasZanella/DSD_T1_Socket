@@ -6,6 +6,7 @@ package Client;
 
 import Interface.Controller.ControllerEnvioDados;
 import Interface.View.EnvioDados;
+import Model.Message;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,11 +45,12 @@ public class ClientStart {
             // ler sentença recebida
             System.out.println("Aguardando mensagem...");
             String msgRecebida = in.readLine();
-            if (msgRecebida == null){
-                System.out.println("Error.");
+            Message retorno = gson.fromJson(msgRecebida, Message.class);
+            if (retorno.getRetorno() == null){
+                System.out.println("Retorno vazio!");
             }
-            System.out.println("Retorno: " + msgRecebida);
-            tela.exibirMensagem(msgRecebida);
+            System.out.println("Retorno: " + retorno.getRetorno());
+            tela.exibirMensagem(retorno.getRetorno());
                 
         } catch (IOException e) {
             System.out.println("Deu exception");
