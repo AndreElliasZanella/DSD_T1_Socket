@@ -6,8 +6,13 @@ public class Message {
     private TimeFutebol time;
     private String metodo;
     private String tipo;
+    private String retorno;
 
     public Message() {
+    }
+    
+    public Message(String retorno) {
+    	this.retorno = retorno;
     }
 
     public Message(Pessoa pessoa, TimeFutebol time, String metodo) {
@@ -17,25 +22,19 @@ public class Message {
             this.metodo = metodo;
     }
 
-    public boolean isExistsTime() {
-            if(time != null) {
-                    return true;
-            }
-            return false;
-    }
+	public boolean isExistsTime() {
+		if (time != null) {
+			return true;
+		}
+		return false;
+	}
 
-    public boolean isExistsJogador() {
-//		if(pessoa != null) {
-//			Class<?> obj = pessoa.getClass();
-//			if(obj.equals(Jogador.class)) {
-//				return true;
-//			}
-//		}
-            if(jogador != null) {
-                    return true;
-            }
-            return false;
-    }
+	public boolean isExistsJogador() {
+		if (jogador != null) {
+			return true;
+		}
+		return false;
+	}
 
     public boolean isExistsTecnico() {
             if(pessoa != null) {
@@ -83,7 +82,15 @@ public class Message {
             this.metodo = metodo;
     }
 
-    public TipoMetodo getTipoMetodo(){
+    public String getRetorno() {
+		return retorno;
+	}
+
+	public void setRetorno(String retorno) {
+		this.retorno = retorno;
+	}
+
+	public TipoMetodo getTipoMetodo(){
             switch (metodo) {
             case "GET": {
                     return TipoMetodo.GET;
