@@ -6,7 +6,6 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  *
  * @author andreellias18
@@ -16,7 +15,8 @@ public class TimeFutebol {
     private String nome;
     private int categoria;
     private String estadio;
-    private List<Pessoa> elenco;
+    private List<Jogador> elenco;
+    private Tecnico tecnico;
 
     public TimeFutebol() {
     }
@@ -28,10 +28,20 @@ public class TimeFutebol {
         this.elenco = new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return "TimeFutebol{" + "nome=" + nome + ", categoria=" + categoria + ", estadio=" + estadio + ", elenco=" + elenco + '}';
-    }
+	@Override
+	public String toString() {
+		String jogadores = "\nJogadores=\n";
+		if (elenco.size() > 0) {
+			for (Jogador jogador : elenco) {
+				jogadores += "* " + jogador.toString() + "\n";
+			}
+		} else {
+			jogadores += "Em escalação";
+		}
+		return "# Nome do time= " + nome + "; Categoria= " + categoria + "; Estadio= " + estadio // 
+				+ "\nTécnico= " + tecnico != null ? tecnico.getNome() : "A contratar" //
+				+ jogadores;
+	}
 
     public String getNome() {
         return nome;
@@ -57,12 +67,20 @@ public class TimeFutebol {
         this.estadio = estadio;
     }
 
-    public List<Pessoa> getElenco() {
+    public List<Jogador> getElenco() {
         return elenco;
     }
-
-    public void addPessoa(Pessoa p) {
-        this.elenco.add(p);
+    
+    public void addJogador(Jogador jogador) {
+    	this.elenco.add(jogador);
     }
+
+	public Tecnico getTecnico() {
+		return tecnico;
+	}
+
+	public void setTecnico(Tecnico tecnico) {
+		this.tecnico = tecnico;
+	}
     
 }

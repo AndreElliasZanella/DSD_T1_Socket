@@ -18,7 +18,6 @@ import Controller.TecnicoController;
 import Controller.TimeFutebolController;
 import Interface.View.Login;
 import Model.Message;
-import Model.Tecnico;
 import java.net.InetAddress;
 /**
  *
@@ -73,7 +72,7 @@ public class ServerStart {
     	if(mensagem.isExistsTime()) {
     		messageHandler = new TimeFutebolController(mensagem, conexao, mensagem.getTime());
     	} else if(mensagem.isExistsTecnico()) {
-    		messageHandler = new TecnicoController(mensagem, conexao, (Tecnico) mensagem.getPessoa());
+    		messageHandler = new TecnicoController(mensagem, conexao, mensagem.getTecnico());
     	} else {
     		messageHandler = new JogadorController(mensagem, conexao, mensagem.getJogador());
     	}

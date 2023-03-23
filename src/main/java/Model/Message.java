@@ -96,25 +96,31 @@ public class Message {
 		this.retorno = retorno;
 	}
 
-	public TipoMetodo getTipoMetodo(){
-            switch (metodo) {
-            case "GET": {
-                    return TipoMetodo.GET;
-            }
-            case "INSERT": {
-                    return TipoMetodo.INSERT;
-            }
-            case "UPDATE": {
-                    return TipoMetodo.UPDATE;
-            }
-            case "DELETE": {
-                    return TipoMetodo.DELETE;
-            }
-            case "LIST": {
-                    return TipoMetodo.LIST;
-            }
-            default:
-                    return null;
-            }
-    }
+	public TipoMetodo getTipoMetodo() {
+		switch (metodo) {
+		case "GET": {
+			return TipoMetodo.GET;
+		}
+		case "INSERT": {
+			return TipoMetodo.INSERT;
+		}
+		case "UPDATE": {
+			return TipoMetodo.UPDATE;
+		}
+		case "DELETE": {
+			return TipoMetodo.DELETE;
+		}
+		case "LIST": {
+			return TipoMetodo.LIST;
+		}
+		case "ADD_JOGADOR_AO_TIME": {
+			return TipoMetodo.ADD_JOGADOR_AO_TIME;
+		}
+		case "ADD_TECNICO_AO_TIME": {
+			return TipoMetodo.ADD_TECNICO_AO_TIME;
+		}
+		default:
+			return null;
+		}
+	}
 }

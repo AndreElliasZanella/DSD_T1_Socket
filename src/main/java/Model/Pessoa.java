@@ -29,7 +29,7 @@ public abstract class Pessoa {
 
     @Override
     public String toString() {
-        return "cpf=" + cpf + ", nome=" + nome + ", endereco=" + endereco + ", contato=" + contato + ", idade=" + idade;
+        return "Cpf= " + cpf + "; Nome= " + nome + "; Endereco= " + endereco + "; Contato= " + contato + "; Idade=" + idade;
     }
 
     public String getCpf() {

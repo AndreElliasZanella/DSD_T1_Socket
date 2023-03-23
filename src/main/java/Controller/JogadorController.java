@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import com.google.gson.Gson;
-
 import Database.JogadorDatabase;
 import Model.Jogador;
 import Model.Message;
@@ -14,12 +12,10 @@ import util.SenderMessage;
 public class JogadorController extends MessageHandler {
 	private Jogador jogador;
 	private PrintWriter out;
-	private Gson gson;
 	
 	public JogadorController(Message mensagem, Socket connexao, Jogador jogador) throws IOException {
 		super(mensagem, connexao);
 		this.jogador = jogador;
-		gson = new Gson();
 		out = new PrintWriter(connexao.getOutputStream(), true);
 	}
 	
@@ -35,9 +31,13 @@ public class JogadorController extends MessageHandler {
 	@Override
 	public void list() {
 		String mensagem = "Jogadores\n";
-		mensagem += JogadorDatabase.jogadores.size() + "\n";
-		for( Jogador jogador : JogadorDatabase.jogadores) {
-			mensagem += jogador.toString() + "\n";
+		if(JogadorDatabase.jogadores.size() > 0) {
+			mensagem += JogadorDatabase.jogadores.size() + "\n";
+			for( Jogador jogador : JogadorDatabase.jogadores) {
+				mensagem += jogador.toString() + "\n";
+			}
+		} else {
+			mensagem = MessageHandler.SEM_PESSOAS_CADASTRADAS;
 		}
 		out.println(SenderMessage.converteMessage(mensagem));
 	}
@@ -63,6 +63,17 @@ public class JogadorController extends MessageHandler {
 		}
 		out.println(SenderMessage.converteMessage(retorno));
 	}
+	
+	public static Jogador getJogador(String cpf) {
+		Jogador encontrado = null;
+		for(Jogador jogador : JogadorDatabase.jogadores) {
+			if(jogador.getCpf().equals(cpf)) {
+				encontrado = jogador;
+				break;
+			}
+		}
+		return encontrado;
+	}
 
 
 
@@ -72,15 +83,9 @@ public class JogadorController extends MessageHandler {
 		if(JogadorDatabase.jogadores.isEmpty()) {
 			retorno = MessageHandler.SEM_PESSOAS_CADASTRADAS;
 		} else {
-			Jogador encontrado = null;
-			for(Jogador jogador : JogadorDatabase.jogadores) {
-				if(jogador.getCpf().equals(this.jogador.getCpf())) {
-					encontrado = jogador;
-					break;
-				}
-			}
+			Jogador encontrado = getJogador(this.jogador.getCpf());
 			if(encontrado != null) {
-				retorno = gson.toJson(encontrado);
+				retorno = encontrado.toString();
 			}
 		}
 		out.println(SenderMessage.converteMessage(retorno));
@@ -92,7 +97,7 @@ public class JogadorController extends MessageHandler {
 	public void update() {
 		String retorno = MessageHandler.PESSOA_NAO_ENCONTRADA;
 		Jogador encontrado = null;
-		for(int i = 0; i <= JogadorDatabase.jogadores.size(); i++) {
+		for(int i = 0; i <= JogadorDatabase.jogadores.size() - 1; i++) {
 			if(jogador.getCpf().equals(JogadorDatabase.jogadores.get(i).getCpf())) {
 				encontrado = jogador;
 				JogadorDatabase.jogadores.remove(i);
@@ -101,7 +106,7 @@ public class JogadorController extends MessageHandler {
 		}
 		if(encontrado != null) {
 			JogadorDatabase.jogadores.remove(encontrado);
-			insert();
+			JogadorDatabase.jogadores.add(jogador);
 			retorno = "Pessoa atualizada com sucesso!";
 		}
 		out.println(SenderMessage.converteMessage(retorno));

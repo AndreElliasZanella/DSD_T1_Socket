@@ -24,7 +24,7 @@ public class Jogador extends Pessoa{
 
     @Override
     public String toString() {
-        return super.toString() + "Camisa= "+numeroDaCamisa +"; Posição= " + posicao;
+        return super.toString() + "; Camisa= "+numeroDaCamisa +"; Posição= " + posicao;
     }
 
     public int getNumeroDaCamisa() {

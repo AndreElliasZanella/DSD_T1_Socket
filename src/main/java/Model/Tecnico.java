@@ -21,11 +21,7 @@ public class Tecnico extends Pessoa{
         this.anosDeExperiencia = anosDeExperiencia;
         this.licensa = licensa;
     }
-
-    @Override
-    public String toString() {
-        return "Tecnico{" + "nome=" + super.getNome() + "anosDeExperiencia=" + anosDeExperiencia + ", licensa=" + licensa + '}';
-    }
+        
 
     public int getAnosDeExperiencia() {
         return anosDeExperiencia;
@@ -41,6 +37,11 @@ public class Tecnico extends Pessoa{
 
     public void setLicensa(int licensa) {
         this.licensa = licensa;
+    }
+    
+    @Override
+    public String toString() {
+    	return super.toString() + "; Anos de experiência= " + anosDeExperiencia + "; Licensa= " + licensa;
     }
     
 }

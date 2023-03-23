@@ -40,6 +40,12 @@ public abstract class MessageHandler {
 		case UPDATE:
 			update();
 			break;
+		case ADD_JOGADOR_AO_TIME:
+			addJogadorAoTime();
+			break;
+		case ADD_TECNICO_AO_TIME:
+			addTecnicoAoTime();
+			break;
 
 		default:
 			break;
@@ -51,4 +57,7 @@ public abstract class MessageHandler {
 	public abstract void delete();
 	public abstract void get();
 	public abstract void update();
+	
+	public void addJogadorAoTime() {}
+	public void addTecnicoAoTime() {}
 }

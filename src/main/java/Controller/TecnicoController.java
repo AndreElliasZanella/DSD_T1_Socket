@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import com.google.gson.Gson;
-
 import Database.TecnicoDatabase;
 import Model.Tecnico;
 import Model.Message;
@@ -15,12 +13,10 @@ public class TecnicoController extends MessageHandler {
 	
 	private Tecnico tecnico;
 	private PrintWriter out;
-	private Gson gson;
 	
 	public TecnicoController(Message mensagem, Socket connexao, Tecnico tecnico) throws IOException {
 		super(mensagem, connexao);
 		this.tecnico = tecnico;
-		gson = new Gson();
 		out = new PrintWriter(connexao.getOutputStream(), true);
 	}
 
@@ -35,9 +31,13 @@ public class TecnicoController extends MessageHandler {
 	@Override
 	public void list() {
 		String mensagem = "Técnicos\n";
-		mensagem += TecnicoDatabase.tecnicos.size() + "\n";
-		for( Tecnico tecnico : TecnicoDatabase.tecnicos) {
-			mensagem += tecnico.toString() + "\n";
+		if(TecnicoDatabase.tecnicos.size() > 0) {
+			mensagem += TecnicoDatabase.tecnicos.size() + "\n";
+			for( Tecnico tecnico : TecnicoDatabase.tecnicos) {
+				mensagem += tecnico.toString() + "\n";
+			}
+		} else {
+			mensagem = MessageHandler.SEM_PESSOAS_CADASTRADAS;
 		}
 		out.println(SenderMessage.converteMessage(mensagem));
 		
@@ -71,18 +71,23 @@ public class TecnicoController extends MessageHandler {
 		if(TecnicoDatabase.tecnicos.isEmpty()) {
 			retorno = MessageHandler.SEM_PESSOAS_CADASTRADAS;
 		} else {
-			Tecnico encontrado = null;
-			for(Tecnico tecnico : TecnicoDatabase.tecnicos) {
-				if(tecnico.getCpf().equals(this.tecnico.getCpf())) {
-					encontrado = tecnico;
-					break;
-				}
-			}
+			Tecnico encontrado = getTecnico(this.tecnico.getCpf());
 			if(encontrado != null) {
-				retorno = gson.toJson(encontrado);
+				retorno = encontrado.toString();
 			}
 		}
 		out.println(SenderMessage.converteMessage(retorno));
+	}
+	
+	public static Tecnico getTecnico(String cpf) {
+		Tecnico encontrado = null;
+		for(Tecnico tecnico : TecnicoDatabase.tecnicos) {
+			if(tecnico.getCpf().equals(cpf)) {
+				encontrado = tecnico;
+				break;
+			}
+		}
+		return encontrado;
 	}
 
 	@Override
@@ -98,7 +103,7 @@ public class TecnicoController extends MessageHandler {
 		}
 		if(encontrado != null) {
 			TecnicoDatabase.tecnicos.remove(encontrado);
-			insert();
+			TecnicoDatabase.tecnicos.add(tecnico);
 			retorno = MessageHandler.PESSOA_ATUALIZADA;
 		}
 		out.println(SenderMessage.converteMessage(retorno));		

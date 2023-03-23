@@ -5,7 +5,9 @@ public enum TipoMetodo {
 	INSERT,
 	UPDATE,
 	DELETE,
-	LIST;
+	LIST,
+	ADD_JOGADOR_AO_TIME,
+	ADD_TECNICO_AO_TIME
 }
 
 
