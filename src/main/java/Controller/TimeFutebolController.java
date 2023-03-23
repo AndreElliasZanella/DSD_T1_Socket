@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import com.google.gson.Gson;
-
 import Database.TimeFutebolDatabase;
 import Model.TimeFutebol;
 import Model.Jogador;
@@ -135,12 +133,13 @@ public class TimeFutebolController extends MessageHandler {
 			if (t != null) {
 				if (pessoa == null) {
 					mensagem = MessageHandler.PESSOA_NAO_ENCONTRADA;
-				}
-				var obj = pessoa.getClass();
-				if (obj.equals(Jogador.class)) {
-					mensagem = addJogador(pessoa, t, mensagem);
 				} else {
-					mensagem = addTecnico(pessoa, t, mensagem);
+					var obj = pessoa.getClass();
+					if (obj.equals(Jogador.class)) {
+						mensagem = addJogador(pessoa, t, mensagem);
+					} else {
+						mensagem = addTecnico(pessoa, t, mensagem);
+					}
 				}
 			}
 		}
@@ -160,7 +159,7 @@ public class TimeFutebolController extends MessageHandler {
 	private String addJogador(Pessoa pessoa, TimeFutebol time, String mensagem) {
 		Jogador encontrado = JogadorController.getJogador(pessoa.getCpf());
 		if(encontrado != null) {
-			time.addJogador((Jogador)pessoa);
+			time.addJogador(encontrado);
 			this.update(time);
 			mensagem = MessageHandler.TIME_ATUALIZADO;
 		}

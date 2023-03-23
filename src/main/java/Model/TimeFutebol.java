@@ -19,6 +19,7 @@ public class TimeFutebol {
     private Tecnico tecnico;
 
     public TimeFutebol() {
+    	this.elenco = new ArrayList<>();
     }
     
     public TimeFutebol(String nome, int categoria, String estadio) {
@@ -30,7 +31,7 @@ public class TimeFutebol {
 
 	@Override
 	public String toString() {
-		String jogadores = "\nJogadores=\n";
+		String jogadores = "\n**Jogadores**\n";
 		if (elenco.size() > 0) {
 			for (Jogador jogador : elenco) {
 				jogadores += "* " + jogador.toString() + "\n";
@@ -38,8 +39,9 @@ public class TimeFutebol {
 		} else {
 			jogadores += "Em escalação";
 		}
+		
 		return "# Nome do time= " + nome + "; Categoria= " + categoria + "; Estadio= " + estadio // 
-				+ "\nTécnico= " + tecnico != null ? tecnico.getNome() : "A contratar" //
+				+ "\nTécnico= " + (tecnico != null ? tecnico.getNome() : "A contratar") //
 				+ jogadores;
 	}
 

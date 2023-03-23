@@ -16,6 +16,7 @@ import Controller.JogadorController;
 import Controller.MessageHandler;
 import Controller.TecnicoController;
 import Controller.TimeFutebolController;
+import Database.Migration;
 import Interface.View.Login;
 import Model.Message;
 import java.net.InetAddress;
@@ -39,6 +40,8 @@ public class ServerStart {
         Gson gson = new Gson();
         
     	Socket conn = null;
+    	
+    	new Migration();
         
         while (true){
             System.out.println("Servidor iniciado. IP:"+ ipCon.getHostAddress() +". Aguardando conexão...");
