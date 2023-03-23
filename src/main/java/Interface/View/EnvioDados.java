@@ -186,7 +186,7 @@ public class EnvioDados extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        metodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "INSERT", "UPDATE", "GET", "DELETE", "LIST", "ADD_JOGADOR_AO_TIME", "ADD_TECNICO_AO_TIME", " " }));
+        metodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "INSERT", "UPDATE", "GET", "DELETE", "LIST", "ADD_JOGADOR_AO_TIME", "ADD_TECNICO_AO_TIME" }));
 
         jLabel1.setText("Método");
 
