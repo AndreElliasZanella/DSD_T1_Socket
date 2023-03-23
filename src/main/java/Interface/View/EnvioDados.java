@@ -236,7 +236,7 @@ public class EnvioDados extends javax.swing.JFrame {
 
         jLabel22.setText("Tipo");
 
-        tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JOGADOR", "TECNICO", "TIME", " " }));
+        tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JOGADOR", "TECNICO", "TIME" }));
 
         btSair.setText("Sair");
 
