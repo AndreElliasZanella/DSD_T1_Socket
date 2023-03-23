@@ -7,10 +7,8 @@ package Server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 import com.google.gson.Gson;
 
@@ -19,7 +17,6 @@ import Controller.MessageHandler;
 import Controller.TecnicoController;
 import Controller.TimeFutebolController;
 import Interface.View.Login;
-import Model.Jogador;
 import Model.Message;
 import Model.Tecnico;
 import java.net.InetAddress;
@@ -28,22 +25,21 @@ import java.net.InetAddress;
  * @author andreellias18
  */
 public class ServerStart {
-
+    
     /**
      * @param args the command line arguments
-     * @param login
      * @throws java.io.IOException
      */
     public static void main(String[] args, Login login) throws IOException{
+        
+        login.FecharTela();
         ServerSocket server = new ServerSocket(80);
         server.setReuseAddress(true);
         
         InetAddress ipCon = InetAddress.getLocalHost();
-        Login tela = login;
         Gson gson = new Gson();
         
     	Socket conn = null;
-        tela.FecharTela();
         
         while (true){
             System.out.println("Servidor iniciado. IP:"+ ipCon.getHostAddress() +". Aguardando conexão...");
@@ -66,11 +62,9 @@ public class ServerStart {
                     conn.close();
                     System.out.println("Socket encerrado.");
                 }
-//                server.close();
-//                scan.close();
-//                System.out.println("ServerSocket encerrado.");
             }
         }
+        
     }
     
     
